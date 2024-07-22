@@ -7,11 +7,11 @@ const {
 
 
 router.route('/')
-.get(getThoughts)
-.post(createThought);
+    .get(getThoughts)
+    .post(createThought);
 
 router.route('/:thoughtId')
-.get(getSingleThought);
+    .get(getSingleThought);
 
 
 
