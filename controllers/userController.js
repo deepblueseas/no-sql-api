@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Thought = require('../models/Thought');
 
+// based on the mini project for module 18
+
 const getUsers = async (req, res) => {
     try {
         const users = await User.find().populate('thoughts').populate('friends');
@@ -42,14 +44,16 @@ const getSingleUser = async (req, res) => {
     const deleteUser = async (req, res) => {
         try {
             const user = await User.findByIdAndDelete(req.params.userId);
-            if (!user) return res.status(404).json({message: 'User not found'});
+            if (!user) { res.status(404).json({message: 'User not found'});
+        }
+        await Thought.deleteMany({ _id: {$in: user.thoughts} });
             res.json({ message: 'User and associated thoughts deleted' });
         } catch (err) {
           res.status(500).json(err);
         }
-    }
+    };
 
-    //will the thought persist?
+ 
 
 
 
