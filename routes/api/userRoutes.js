@@ -8,7 +8,7 @@ updateUser,
 deleteUser,
 addFriend,
 removeFriend
-} = require // (need to make a controllers for Users)
+} = require('../../controllers/userController.js');
 
 router.route('/')
 .get(getUsers)
