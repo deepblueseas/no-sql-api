@@ -9,6 +9,8 @@ const {
     removeReaction
 } = require('../../controllers/thoughtsController.js');
 
+// These are written out very simply in the routes folder
+// the controllers contain the code for finding by id etc
 
 // Route to get all thoughts
 router.get('/', getThoughts);
