@@ -6,21 +6,15 @@ const {
     createUser,
     updateUser,
     deleteUser,
-    addFriend,
-    removeFriend
 } = require('../../controllers/userController.js');
 
-router.route('/')
+router.route('/users')
     .get(getUsers)
     .post(createUser);
 
-router.route('/:userId')
+router.route('/users/:userId')
     .get(getSingleUser)
     .put(updateUser)
     .delete(deleteUser);
-
-router.route('/:userId/friends/:friendId')
-    .post(addFriend)
-    .delete(removeFriend);
 
 module.exports = router;
