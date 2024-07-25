@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+const { Schema } = mongoose;
 
 const ReactionSchema = new Schema(
     {
@@ -23,7 +23,6 @@ const ReactionSchema = new Schema(
         },
     },
     {
-        //do i need this?
         toJSON: {
             getters: true,
         },
