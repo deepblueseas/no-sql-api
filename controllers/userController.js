@@ -3,6 +3,7 @@ const Thought = require('../models/Thought');
 
 const getUsers = async (req, res) => {
     try {
+        // we are getting a user and also the thoughts and friends associated with that user by populate
         const users = await User.find().populate('thoughts').populate('friends');
         res.json(users);
     } catch (err) {
@@ -35,7 +36,7 @@ const updateUser = async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         res.json(user);
     } catch (err) {
-        res.status(500).json(err); // Fixed typo here
+        res.status(500).json(err); 
     }
 };
 
@@ -45,6 +46,8 @@ const deleteUser = async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
 
         // Check if user has thoughts before attempting to delete
+        // similar to cascade in sql, this makes sure there is no orphan data
+        // $in in a mongo query operator... it is checking to see if user id = the userId in the params and deleting thoughts associated
         if (user.thoughts.length) {
             await Thought.deleteMany({ _id: { $in: user.thoughts } });
         }

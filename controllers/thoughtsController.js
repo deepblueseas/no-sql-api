@@ -45,6 +45,8 @@ const createThought = async (req, res) => {
             if (!thought) return res.status(404).json({ message: 'Thought not found' });
     
             // Remove the thought's _id from the associated user's thoughts array
+            // the $pull reminds me of the filter method for deleting things in vanilla js
+            // and this is similar to the where in SQL to make sure we are only deleting the thoughts with the ID we specified in the param
             await User.updateMany(
                 { thoughts: thought._id },
                 { $pull: { thoughts: thought._id } }
@@ -61,6 +63,7 @@ const createThought = async (req, res) => {
             const thought = await Thought.findByIdAndUpdate(
                 req.params.thoughtId,
                 { $push: { reactions: req.body } },
+                // new true ensures the info we get back in insomia and compass is updated
                 { new: true }
             );
             if (!thought) return res.status(404).json({ message: 'Thought not found' });
@@ -74,6 +77,7 @@ const createThought = async (req, res) => {
         try {
             const thought = await Thought.findByIdAndUpdate(
                 req.params.thoughtId,
+                // we're going throught the thought id and then deleting the reaction associated with that thought
                 { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { new: true }
             );

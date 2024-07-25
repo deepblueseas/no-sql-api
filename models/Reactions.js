@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+// these models are based heavily on the models in the miniproject
+
 const ReactionSchema = new Schema(
     {
         reactionID: {
@@ -23,6 +25,7 @@ const ReactionSchema = new Schema(
         },
     },
     {
+        // this helps the created at to be formatted correctly when "GET" runs
         toJSON: {
             getters: true,
         },
