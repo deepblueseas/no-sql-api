@@ -45,6 +45,7 @@ const deleteUser = async (req, res) => {
         const user = await User.findByIdAndDelete(req.params.userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
 
+        // this would delete any assocaited thoughts if i had added any!
         if (user.thoughts.length) {
             await Thought.deleteMany({ _id: { $in: user.thoughts } });
         }
