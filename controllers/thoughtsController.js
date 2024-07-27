@@ -1,6 +1,11 @@
 const User = require('../models/User');
 const Thought = require('../models/Thought');
 
+// in Mongo, populate is used grab a document from another collection
+// so here we are GET-ing a thought and then using the ObjectID from reactions in the thoughts schema
+// to also pull in all the thoughts related to the corresponding thought id
+// that way everything matches up
+
 const getThoughts = async (req, res) => {
     try {
         const thoughts = await Thought.find().populate('reactions');
@@ -31,6 +36,9 @@ const createThought = async (req, res) => {
 
     const updateThought = async (req, res) => {
         try {
+            //i love new true, it shows the updated information in the database
+            // we're passing the thoughtId in as the request param and making sure we update that specific thought
+            // a where statement would be used here if using Pstgres/SQL
             const thought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true });
             if (!thought) return res.status(404).json({ message: 'Thought not found' });
             res.json(thought);

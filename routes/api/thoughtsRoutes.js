@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const {
     getThoughts,
     getSingleThought,
@@ -7,30 +8,25 @@ const {
     deleteThought,
     addReaction,
     removeReaction
-} = require('../../controllers/thoughtsController.js');
+} = require('../../controllers/thoughtsController'); 
 
-// These are written out very simply in the routes folder
-// the controllers contain the code for finding by id etc
+router.route('/')
+    .get(getThoughts)
+    .post(createThought); 
 
-// Route to get all thoughts
-router.get('/', getThoughts);
+router.route('/:thoughtId')
+    .get(getSingleThought)
+    .put(updateThought)
+    .delete(deleteThought);
 
-// Route to get a single thought by id
-router.get('/:thoughtId', getSingleThought);
+router.route('/:thoughtId/reactions')
+    .post(addReaction); 
 
-// Route to create a new thought
-router.post('/', createThought);
+router.route('/:thoughtId/reactions/:reactionId')
+    .delete(removeReaction);
 
-// Route to update a thought
-router.put('/:thoughtId', updateThought);
+// this style was taken from module 18, esp the miniproject
+// i love having the routes written out this way, i think its very neat and clear
 
-// Route to delete a thought
-router.delete('/:thoughtId', deleteThought);
-
-// Route to add a reaction
-router.post('/:thoughtId/reactions', addReaction);
-
-// Route to remove a reaction
-router.delete('/:thoughtId/reactions/:reactionId', removeReaction);
 
 module.exports = router;

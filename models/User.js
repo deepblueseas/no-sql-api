@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 // Schema to create a User model
 const userSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -14,14 +14,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     thoughts: [
       {
-      type: Schema.Types.ObjectId,
-      ref: 'Thought',
-    }
-  ],
+        type: Schema.Types.ObjectId,
+        ref: 'Thought',
+      }
+    ],
     friends: [
       {
         type: Schema.Types.ObjectId,
@@ -36,10 +35,6 @@ const userSchema = new Schema(
     id: false,
   }
 );
-
-userSchema.virtual('friendCount').get(function () {
-  return this.friends.length;
-});
 
 // A virtual is not stored in the db, but it is calculated dynamically
 // so the number of friends isn't stored in the database in a column, but it can be calculated on the fly 
