@@ -21,5 +21,7 @@ III [Video Walk-through](#video-tutorial) <br>
 >   - I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 
 # Image Example of Working APP
+![image of insomnia](images/no-sql.png)
+
 
 # Video Tutorial
